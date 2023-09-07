@@ -14,28 +14,27 @@ type AuthPageProps = {
 
 const index:React.FC<AuthPageProps> = () => {
     const authModal = useRecoilValue(authModalState);
+	const [user, loading, error] = useAuthState(auth);
+	const [pageLoading, setPageLoading] = useState(true);
+	const router = useRouter();
 
-    const [user, loading, error] = useAuthState(auth);
-    const [pageLoading, setPageLoading] = useState(true);
+	useEffect(() => {
+		if (user) router.push("/");
+		if (!loading && !user) setPageLoading(false);
+	}, [user, router, loading]);
 
-    const router = useRouter();
+	if (pageLoading) return null;
 
-    useEffect(() => {
-        if (user) router.push('/')
-        if (!loading && !user) setPageLoading(false)
-    }, [router, user, loading])
-
-    if (pageLoading) return null;
-
-    return <div className="bg-gradient-to-b from-gray-600 to black h-screen relative">
-        <div className="max-w-7xl auto">
-            <Navbar />
-            <div className='flex items-center justify-center h-[calc(100vh-5rem)] pointer-events-none select-none'>
-                <Image src='/hero.png' alt='hero image' width={700} height={700} />
-
-            </div>
-            {authModal.isOpen && <AuthModal />}
-        </div>
-    </div>
+	return (
+		<div className='bg-gradient-to-b from-gray-600 to-black h-screen relative'>
+			<div className='max-w-7xl mx-auto'>
+				<Navbar />
+				<div className='flex items-center justify-center h-[calc(100vh-5rem)] pointer-events-none select-none'>
+					<Image src='/hero.png' alt='Hero img' width={700} height={700} />
+				</div>
+				{authModal.isOpen && <AuthModal />}
+			</div>
+		</div>
+	);
 }
 export default index;
