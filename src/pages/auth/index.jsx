@@ -10,7 +10,7 @@ import Image from 'next/image';
 
 
 
-const index = () => {
+const Index = () => {
     const authModal = useRecoilValue(authModalState);
 	const [user, loading, error] = useAuthState(auth);
 	const [pageLoading, setPageLoading] = useState(true);
@@ -35,4 +35,4 @@ const index = () => {
 		</div>
 	);
 }
-export default index;
+export default Index;
