@@ -8,11 +8,9 @@ import { auth } from '@/firebase/firebase';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-type AuthPageProps = {
-    
-};
 
-const index:React.FC<AuthPageProps> = () => {
+
+const index = () => {
     const authModal = useRecoilValue(authModalState);
 	const [user, loading, error] = useAuthState(auth);
 	const [pageLoading, setPageLoading] = useState(true);
